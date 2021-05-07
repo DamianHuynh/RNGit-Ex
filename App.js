@@ -8,12 +8,16 @@ import RenderWithMap from './src/components/Buoi6/RenderWithMap';
 import BaiTapRenderWithMap from './src/components/Buoi6/BaiTapRenderWithMap';
 import GameScrollView from './src/components/Buoi6/GameScrollView';
 import BaiTapScrollView from './src/components/Buoi6/BaiTapScrollView';
+import BaiTapScrollViewHome from './src/components/Buoi7/BaiTapScrollView';
+import DemoFlatList from './src/components/Buoi7/DemoFlatList';
+import DemoSectionList from './src/components/Buoi7/DemoSectionList';
 
 const App = () => (
   // <Layout />
   // <Touched />
   // <RenderWithState />
-  <BaiTapScrollView />
+  // <DemoFlatList />
+  <DemoSectionList />
 );
 
 export default App;
