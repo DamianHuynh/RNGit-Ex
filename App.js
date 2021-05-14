@@ -11,13 +11,15 @@ import BaiTapScrollView from './src/components/Buoi6/BaiTapScrollView';
 import BaiTapScrollViewHome from './src/components/Buoi7/BaiTapScrollView';
 import DemoFlatList from './src/components/Buoi7/DemoFlatList';
 import DemoSectionList from './src/components/Buoi7/DemoSectionList';
+import BaiTapOanTuXi from './src/components/Buoi8/';
 
 const App = () => (
   // <Layout />
   // <Touched />
   // <RenderWithState />
   // <DemoFlatList />
-  <DemoSectionList />
+  // <DemoSectionList />
+  <BaiTapOanTuXi />
 );
 
 export default App;

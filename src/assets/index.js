@@ -31,6 +31,13 @@ const Genshin_2 = require('./images/Game/Genshin_2.jpg');
 const Genshin_3 = require('./images/Game/Genshin_3.jpg');
 const Genshin_4 = require('./images/Game/Genshin_4.jpg');
 
+import Scissor from './images/RockPaperScissor/keo.png';
+import Rock from './images/RockPaperScissor/bua.png';
+import Paper from './images/RockPaperScissor/bao.png';
+import BackgroundImage from './images/RockPaperScissor/bgGame.png';
+import Player from './images/RockPaperScissor/player.png';
+import Bot from './images/RockPaperScissor/playerComputer.png';
+
 export {
   LoveIcon,
   AngryIcon,
@@ -60,4 +67,10 @@ export {
   Genshin_2,
   Genshin_3,
   Genshin_4,
+  Scissor,
+  Rock,
+  Paper,
+  BackgroundImage,
+  Player,
+  Bot,
 };
