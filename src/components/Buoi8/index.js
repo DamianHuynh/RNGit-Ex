@@ -4,16 +4,77 @@ import {
   Text,
   View,
   ImageBackground,
-  Image,
   SafeAreaView,
   StatusBar,
   TouchableOpacity,
 } from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
 import {BackgroundImage, Bot, Paper, Player, Rock, Scissor} from '../../assets';
 import PlayerItem from './PlayerItem';
+import ResultContent from './ResultContent';
+import SelectContent from './SelectContent';
 
 export default class BaiTapOanTuXi extends Component {
+  state = {
+    disable: false,
+    playerSelect: {id: 'paper', image: Paper, status: true},
+    botSelect: {id: 'rock', image: Rock, status: false},
+    isSelect: 'paper',
+    arrayGame: [
+      {id: 'scissor', image: Scissor, status: false},
+      {id: 'rock', image: Rock, status: false},
+      {id: 'paper', image: Paper, status: true},
+    ],
+    score: 0,
+    times: 9,
+  };
+
+  onSelectItem = selectItem => {
+    //Cách 1: Tạo state isSelect
+    // this.setState({playImage: selectItem.image, isSelect: selectItem.id});
+
+    //Cách 2: Khi xử lý status với mảng arrayGame
+    const arrayGame = this.state.arrayGame;
+    const index = arrayGame.findIndex(item => item.id === selectItem.id);
+    if (!arrayGame[index].status) {
+      const previousSelectIndex = arrayGame.findIndex(item => item.status);
+      arrayGame[index].status = true;
+      arrayGame[previousSelectIndex].status = false;
+    }
+    this.setState({playerSelect: selectItem, arrayGame});
+  };
+
+  onPressPlayButton = () => {
+    this.setState({disable: true});
+    const random = setInterval(() => {
+      this.state.botSelect.image = this.state.arrayGame[
+        Math.floor(Math.random() * 3)
+      ].image;
+      this.setState({botSelect: this.state.botSelect});
+    }, 100);
+
+    //Count++ sử dụng biến count để clear interval
+    setTimeout(() => {
+      clearInterval(random);
+      let times, score;
+      switch (this.state.playerSelect.id) {
+        case 'paper':
+          if (this.state.botSelect.id === 'paper') {
+            times = this.state.times - 1;
+          } else if (this.state.botSelect.id === 'scissor') {
+            score = this.state.score - 1;
+            times = this.state.times - 1;
+          } else {
+            score = this.state.score + 1;
+            times = this.state.score + 1;
+          }
+          break;
+        default:
+          break;
+      }
+      this.setState({disable: false, times, score});
+    }, 5000);
+  };
+
   render() {
     return (
       <ImageBackground
@@ -23,35 +84,30 @@ export default class BaiTapOanTuXi extends Component {
         <View style={styles.overlay}>
           <SafeAreaView style={styles.container}>
             <View style={styles.playerContent}>
-              <PlayerItem imageGame={Paper} imagePlayer={Player} />
-              <PlayerItem imageGame={Rock} imagePlayer={Bot} />
+              <PlayerItem
+                imageGame={this.state.playerSelect.image}
+                imagePlayer={Player}
+              />
+              <PlayerItem
+                imageGame={this.state.botSelect.image}
+                imagePlayer={Bot}
+              />
             </View>
             <View style={styles.selectContent}>
-              <View style={styles.borderItem}>
-                <Image style={styles.imageItem} source={Scissor} />
-              </View>
-              <View style={styles.borderItem}>
-                <Image style={styles.imageItem} source={Rock} />
-              </View>
-              <View style={styles.borderItem}>
-                <Image style={styles.imageItem} source={Paper} />
-              </View>
+              <SelectContent
+                disable={this.state.disable}
+                arrayGame={this.state.arrayGame}
+                onSelectItem={this.onSelectItem}
+                isSelect={this.state.isSelect}
+              />
             </View>
             <View style={styles.infoContent}>
-              <Text style={styles.infoTxt}>Score: 0</Text>
-              <Text style={styles.infoTxt}>Times: 9</Text>
-            </View>
-            <View style={styles.buttonContent}>
-              <TouchableOpacity style={styles.buttonPlay}>
-                <Text style={styles.buttonTxt}>Play</Text>
-              </TouchableOpacity>
-              <LinearGradient
-                style={styles.buttonReset}
-                colors={['#daaa0c', '#ffce35']}>
-                <TouchableOpacity>
-                  <Text style={styles.buttonTxt}>Reset</Text>
-                </TouchableOpacity>
-              </LinearGradient>
+              <ResultContent
+                disable={this.state.disable}
+                times={this.state.times}
+                score={this.state.score}
+                onPressPlayButton={this.onPressPlayButton}
+              />
             </View>
           </SafeAreaView>
         </View>
@@ -106,45 +162,5 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: 'bold',
     color: '#00fecd',
-  },
-  buttonContent: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-  },
-  buttonPlay: {
-    height: 50,
-    width: 150,
-    borderRadius: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#ff9aff',
-  },
-  buttonReset: {
-    height: 50,
-    width: 150,
-    borderRadius: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
-    // backgroundColor: '#fecd34',
-  },
-  buttonTxt: {
-    fontSize: 30,
-    fontWeight: 'bold',
-    color: 'white',
-  },
-  linearGradient: {
-    flex: 1,
-    paddingLeft: 15,
-    paddingRight: 15,
-    borderRadius: 5,
-  },
-  buttonText: {
-    fontSize: 18,
-    fontFamily: 'Gill Sans',
-    textAlign: 'center',
-    margin: 10,
-    color: '#ffffff',
-    backgroundColor: 'transparent',
   },
 });
