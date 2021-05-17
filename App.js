@@ -12,14 +12,21 @@ import BaiTapScrollViewHome from './src/components/Buoi7/BaiTapScrollView';
 import DemoFlatList from './src/components/Buoi7/DemoFlatList';
 import DemoSectionList from './src/components/Buoi7/DemoSectionList';
 import BaiTapOanTuXi from './src/components/Buoi8/';
-
+import DemoRedux from './src/components/Buoi9Redux';
+import {Provider} from 'react-redux';
+import store from './src/components/Buoi9Redux/redux/store';
+import BaiTapRedux from './src/components/Buoi9Redux/BaiTapRedux';
 const App = () => (
   // <Layout />
   // <Touched />
   // <RenderWithState />
   // <DemoFlatList />
   // <DemoSectionList />
-  <BaiTapOanTuXi />
+  // <BaiTapOanTuXi />
+  <Provider store={store}>
+    {/* <DemoRedux /> */}
+    <BaiTapRedux />
+  </Provider>
 );
 
 export default App;

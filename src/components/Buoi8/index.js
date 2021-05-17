@@ -46,10 +46,12 @@ export default class BaiTapOanTuXi extends Component {
   onPressPlayButton = () => {
     this.setState({disable: true});
     const random = setInterval(() => {
-      this.state.botSelect.image = this.state.arrayGame[
+      this.state.botSelect = this.state.arrayGame[
         Math.floor(Math.random() * 3)
-      ].image;
-      this.setState({botSelect: this.state.botSelect});
+      ];
+      this.setState({botSelect: this.state.botSelect}, () => {
+        // console.log(this.state.botSelect);
+      });
     }, 100);
 
     //Count++ sử dụng biến count để clear interval
@@ -59,20 +61,50 @@ export default class BaiTapOanTuXi extends Component {
       switch (this.state.playerSelect.id) {
         case 'paper':
           if (this.state.botSelect.id === 'paper') {
+            score = this.state.score;
             times = this.state.times - 1;
           } else if (this.state.botSelect.id === 'scissor') {
+            if (this.state.score > 0) {
+              score = this.state.score - 1;
+            }
+            if (this.state.times > 0) {
+              times = this.state.times - 1;
+            }
+          } else {
+            score = this.state.score + 1;
+            times = this.state.times + 1;
+          }
+          break;
+        case 'rock':
+          if (this.state.botSelect.id === 'rock') {
+            score = this.state.score;
+            times = this.state.times - 1;
+          } else if (this.state.botSelect.id === 'paper') {
             score = this.state.score - 1;
             times = this.state.times - 1;
           } else {
             score = this.state.score + 1;
-            times = this.state.score + 1;
+            times = this.state.times + 1;
           }
           break;
-        default:
+        case 'scissor':
+          if (this.state.botSelect.id === 'scissor') {
+            score = this.state.score;
+            times = this.state.times - 1;
+          } else if (this.state.botSelect.id === 'rock') {
+            score = this.state.score - 1;
+            times = this.state.times - 1;
+          } else {
+            score = this.state.score + 1;
+            times = this.state.times + 1;
+          }
           break;
       }
-      this.setState({disable: false, times, score});
-    }, 5000);
+      this.setState({disable: false, times, score}, () => {
+        console.log('time: ', this.state.times);
+        console.log('score: ', this.state.score);
+      });
+    }, 1000);
   };
 
   render() {
