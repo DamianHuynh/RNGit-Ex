@@ -1,8 +1,27 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View, Alert} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import {connect} from 'react-redux';
+import {getResult, play, reset} from '../redux/actions/gameAction';
 
-export default class ResultContent extends Component {
+class ResultContent extends Component {
+  onPressPlayButton = () => {
+    if (this.props.times > 0) {
+      const random = setInterval(() => {
+        const id = Math.floor(Math.random() * 3);
+        this.props.onPressPlayButton(id);
+      }, 200);
+      setTimeout(() => {
+        clearInterval(random);
+        this.props.getResult();
+      }, 1500);
+    } else {
+      Alert.alert('Lượt chơi đã hết', 'Bạn đã thua, ấn resest để chơi lại', [
+        {text: 'OK', onPress: () => console.log('OK Pressed')},
+      ]);
+    }
+  };
+
   render() {
     return (
       <View>
@@ -13,7 +32,7 @@ export default class ResultContent extends Component {
         <View style={styles.buttonContent}>
           <TouchableOpacity
             disabled={this.props.disable}
-            onPress={this.props.onPressPlayButton}
+            onPress={this.onPressPlayButton}
             style={[
               styles.buttonPlay,
               this.props.disable && {backgroundColor: '#bbb'},
@@ -23,7 +42,7 @@ export default class ResultContent extends Component {
           <LinearGradient
             style={styles.buttonReset}
             colors={['#daaa0c', '#ffce35']}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={this.props.onPressResetButton}>
               <Text style={styles.buttonTxt}>Reset</Text>
             </TouchableOpacity>
           </LinearGradient>
@@ -71,3 +90,16 @@ const styles = StyleSheet.create({
     color: 'white',
   },
 });
+
+const mapStateToProp = state => ({
+  times: state.gameReducer.times,
+  score: state.gameReducer.score,
+});
+
+const mapDispatchToProp = dispatch => ({
+  onPressPlayButton: id => dispatch(play(id)),
+  getResult: () => dispatch(getResult()),
+  onPressResetButton: () => dispatch(reset()),
+});
+
+export default connect(mapStateToProp, mapDispatchToProp)(ResultContent);
