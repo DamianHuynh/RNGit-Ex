@@ -6,34 +6,23 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-import {
-  BackgroundImage,
-  Bot,
-  Paper,
-  Player,
-  Rock,
-  Scissor,
-} from '../../../assets';
+import {connect} from 'react-redux';
+import {BackgroundImage, Bot, Player} from '../../../assets';
 import PlayerItem from './PlayerItem';
 import ResultContent from './ResultContent';
 import SelectContent from './SelectContent';
 
-export default class BaiTapRedux extends Component {
+class BaiTapRedux extends Component {
   state = {
     disable: false,
-    playerSelect: {id: 'paper', image: Paper, status: true},
-    botSelect: {id: 'rock', image: Rock, status: false},
     isSelect: 'paper',
-    arrayGame: [
-      {id: 'scissor', image: Scissor, status: false},
-      {id: 'rock', image: Rock, status: false},
-      {id: 'paper', image: Paper, status: true},
-    ],
     score: 0,
     times: 9,
   };
 
   render() {
+    const {playerSelect, botSelect} = this.props;
+    // console.log(this.props.playerSelect);
     return (
       <ImageBackground
         style={styles.backgroundContent}
@@ -42,14 +31,8 @@ export default class BaiTapRedux extends Component {
         <View style={styles.overlay}>
           <SafeAreaView style={styles.container}>
             <View style={styles.playerContent}>
-              <PlayerItem
-                imageGame={this.state.playerSelect.image}
-                imagePlayer={Player}
-              />
-              <PlayerItem
-                imageGame={this.state.botSelect.image}
-                imagePlayer={Bot}
-              />
+              <PlayerItem imageGame={playerSelect.image} imagePlayer={Player} />
+              <PlayerItem imageGame={botSelect.image} imagePlayer={Bot} />
             </View>
             <View style={styles.selectContent}>
               <SelectContent />
@@ -112,3 +95,12 @@ const styles = StyleSheet.create({
     color: '#00fecd',
   },
 });
+
+const mapStateToProp = state => {
+  return {
+    playerSelect: state.gameReducer.playerSelect,
+    botSelect: state.gameReducer.botSelect,
+  };
+};
+
+export default connect(mapStateToProp)(BaiTapRedux);

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Image, StyleSheet, TouchableOpacity} from 'react-native';
 import {connect} from 'react-redux';
+import {playSelect} from '../redux/actions/gameAction';
 
 //array = [{id:'' ,image: path, status: true},
 //         {id:'' ,image: path, status: false},
@@ -8,6 +9,7 @@ import {connect} from 'react-redux';
 
 class SelectContent extends Component {
   render() {
+    // console.log(this.props);
     return this.props.arrayGame.map(item => (
       <TouchableOpacity
         disabled={this.props.disable}
@@ -45,4 +47,8 @@ const mapStateToProp = state => ({
   arrayGame: state.gameReducer.arrayGame,
 });
 
-export default connect(mapStateToProp)(SelectContent);
+const mapDispatchToProp = dispatch => ({
+  onSelectItem: item => dispatch(playSelect(item)),
+});
+
+export default connect(mapStateToProp, mapDispatchToProp)(SelectContent);
