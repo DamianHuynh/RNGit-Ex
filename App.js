@@ -18,6 +18,8 @@ import store from './src/components/Buoi9Redux/redux/store';
 import BaiTapRedux from './src/components/Buoi9Redux/BaiTapRedux';
 import Lifecycle from './src/components/Lifecycle';
 import BaiTapLifecycle from './src/components/Lifecycle/BaiTapLifecycle';
+import Validation from './src/components/Validation';
+import ValidationFormik from './src/components/Validation/ValidationFormik';
 const App = () => (
   // <Layout />
   // <Touched />
@@ -29,7 +31,9 @@ const App = () => (
     {/* <DemoRedux /> */}
     {/* <BaiTapRedux /> */}
     {/* <Lifecycle /> */}
-    <BaiTapLifecycle />
+    {/* <BaiTapLifecycle /> */}
+    {/* <Validation /> */}
+    <ValidationFormik />
   </Provider>
 );
 
