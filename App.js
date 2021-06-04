@@ -20,6 +20,7 @@ import Lifecycle from './src/components/Lifecycle';
 import BaiTapLifecycle from './src/components/Lifecycle/BaiTapLifecycle';
 import Validation from './src/components/Validation';
 import ValidationFormik from './src/components/Validation/ValidationFormik';
+import RootNavigator from './src/components/Navigation';
 const App = () => (
   // <Layout />
   // <Touched />
@@ -33,7 +34,8 @@ const App = () => (
     {/* <Lifecycle /> */}
     {/* <BaiTapLifecycle /> */}
     {/* <Validation /> */}
-    <ValidationFormik />
+    {/* <ValidationFormik /> */}
+    <RootNavigator />
   </Provider>
 );
 
