@@ -20,8 +20,9 @@ import Lifecycle from './src/components/Lifecycle';
 import BaiTapLifecycle from './src/components/Lifecycle/BaiTapLifecycle';
 import Validation from './src/components/Validation';
 import ValidationFormik from './src/components/Validation/ValidationFormik';
-import RootNavigator from './src/components/Navigation';
 import LearnHooks from './src/components/Hooks';
+import Parent from './src/components/BaiTapHook/Parent';
+import BaiTapColor from './src/components/BaiTapHook/BaiTapColor';
 const App = () => (
   // <Layout />
   // <Touched />
@@ -38,6 +39,8 @@ const App = () => (
     {/* <ValidationFormik /> */}
     {/* <RootNavigator /> */}
     <LearnHooks />
+    {/* <Parent /> */}
+    {/* <BaiTapColor /> */}
   </Provider>
 );
 
