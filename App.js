@@ -23,6 +23,9 @@ import ValidationFormik from './src/components/Validation/ValidationFormik';
 import LearnHooks from './src/components/Hooks';
 import Parent from './src/components/BaiTapHook/Parent';
 import BaiTapColor from './src/components/BaiTapHook/BaiTapColor';
+import Animation from './src/components/Animation';
+import OpacityAnimated from './src/components/Animation/OpacityAnimated';
+
 const App = () => (
   // <Layout />
   // <Touched />
@@ -38,9 +41,11 @@ const App = () => (
     {/* <Validation /> */}
     {/* <ValidationFormik /> */}
     {/* <RootNavigator /> */}
-    <LearnHooks />
+    {/* <LearnHooks /> */}
     {/* <Parent /> */}
     {/* <BaiTapColor /> */}
+    {/* <Animation /> */}
+    <OpacityAnimated />
   </Provider>
 );
 
